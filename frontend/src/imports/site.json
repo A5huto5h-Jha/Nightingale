@@ -1,0 +1,10 @@
+{
+  "description": "Book appointments with local doctors across hospitals, analyze symptoms for diagnosis, and confirm bookings with secure UPI payments in one seamless app.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

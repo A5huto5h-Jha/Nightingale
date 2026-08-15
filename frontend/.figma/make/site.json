@@ -1,0 +1,10 @@
+{
+  "description": "Delivers a premium, minimalist dark mode interface optimized for desktops and laptops, enhancing user experience with elegant, accessible design.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
