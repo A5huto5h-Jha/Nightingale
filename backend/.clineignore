@@ -1,0 +1,14 @@
+# Exclude heavy binaries and sensitive files from Cline's context window
+.git/
+__pycache__/
+*.pyc
+.env
+.env.*
+node_modules/
+dist/
+build/
+coverage/
+*.log
+*.sqlite
+.venv/
+venv/
