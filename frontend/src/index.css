@@ -141,3 +141,114 @@ input, textarea, select, button {
 
 .safe-top    { padding-top: env(safe-area-inset-top, 0px); }
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* Desktop and Laptop Grid Layout */
+.desktop-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #E3E5E8;
+}
+
+.desktop-sidebar {
+  display: none; /* Hidden on mobile and tablet */
+}
+
+.app-frame-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+  padding: 0;
+}
+
+.app-frame {
+  width: 100%;
+  max-width: 680px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #1E1E1E;
+  box-shadow: 0 0 80px rgba(0,0,0,0.55);
+  transition: all 0.3s ease;
+}
+
+/* Responsive styles for tablet, laptop, desktop */
+@media (min-width: 1024px) {
+  .desktop-wrapper {
+    background: radial-gradient(circle at top left, #1a1c1e, #111215);
+  }
+  
+  .desktop-sidebar {
+    display: flex;
+    flex: 1.1;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 40px 60px;
+    border-right: 1px solid rgba(60, 64, 69, 0.3);
+  }
+  
+  .desktop-sidebar-content {
+    max-width: 460px;
+    animation: fade-up 0.6s ease forwards;
+  }
+  
+  .app-frame-container {
+    flex: 0.9;
+    padding: 30px 40px;
+    justify-content: flex-start;
+  }
+  
+  .app-frame {
+    height: 820px;
+    max-height: 90vh;
+    border-radius: 20px;
+    border: 1px solid #3C4045;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  }
+}
+
+@media (min-width: 1400px) {
+  .desktop-sidebar {
+    flex: 1.2;
+    padding: 40px 100px;
+  }
+  .app-frame-container {
+    padding-left: 80px;
+  }
+}
+
+/* Hover styles for interactive elements on desktop */
+@media (hover: hover) {
+  button {
+    transition: all 0.18s ease-in-out !important;
+  }
+  
+  button:not(:disabled):hover {
+    opacity: 0.95;
+    transform: translateY(-0.5px);
+  }
+
+  /* Primary Gold Button Hover */
+  button:not(:disabled)[style*="background-color: rgb(226, 183, 20)"]:hover,
+  button:not(:disabled)[style*="background-color: #E2B714"]:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 4px 12px rgba(226, 183, 20, 0.2);
+  }
+  
+  /* Outline / Chip Button Hover */
+  button[style*="background-color: rgb(40, 42, 45)"]:hover,
+  button[style*="background-color: #282A2D"]:hover {
+    border-color: #E2B714 !important;
+    color: #E2B714 !important;
+    background-color: rgba(226, 183, 20, 0.04) !important;
+  }
+  
+  /* Bottom navigation tabs hover */
+  button[style*="background: none"]:hover {
+    color: #E2B714 !important;
+  }
+}

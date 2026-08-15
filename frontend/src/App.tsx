@@ -53,84 +53,127 @@ export default function App() {
   const showNav = isLoggedIn && !['auth', 'payment', 'confirmation'].includes(screen)
 
   return (
-    <div style={{ backgroundColor: C.bg, minHeight: '100dvh' }}>
-      <div
-        style={{
-          maxWidth: 680,
-          margin: '0 auto',
-          minHeight: '100dvh',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          backgroundColor: C.bg,
-          boxShadow: '0 0 80px rgba(0,0,0,0.4)',
-        }}
-      >
-        {screen === 'auth' && <AuthScreen onLogin={handleLogin} />}
+    <div className="desktop-wrapper">
+      {/* Desktop Left Sidebar Panel - Gorgeous premium look on large displays */}
+      <div className="desktop-sidebar">
+        <div className="desktop-sidebar-content">
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
+            <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 42, color: C.text, margin: 0 }}>
+              NavaCare
+            </h1>
+            <div style={{
+              width: 8, height: 8, borderRadius: '50%',
+              backgroundColor: C.gold,
+            }} />
+          </div>
+          <p style={{ fontSize: 16, color: C.muted, marginBottom: 48, letterSpacing: 0.2 }}>
+            Premium healthcare, on your terms.
+          </p>
 
-        {screen === 'dashboard' && (
-          <DashboardScreen
-            profile={patientProfile}
-            symptoms={symptoms}
-            setSymptoms={setSymptoms}
-            suggestedSpecialty={suggestedSpecialty}
-            setSuggestedSpecialty={setSuggestedSpecialty}
-            onFindDoctors={() => go('doctors')}
-          />
-        )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 28, marginBottom: 48 }}>
+            {[
+              { icon: '✨', title: 'AI Symptom Triage', desc: 'Describe your symptoms naturally. Our engine suggests the correct specialist instantly.' },
+              { icon: '⚡', title: 'Live Queue Engine', desc: 'Monitor real-time waiting queues and consultation progress directly from your device.' },
+              { icon: '💳', title: 'Seamless Payments', desc: 'Confirm appointments instantly with integrated UPI and secure digital payment modes.' },
+              { icon: '🏥', title: 'Premium OPD Care', desc: 'Access top-tier hospital rooms and blocks with structured directional assistance.' },
+            ].map((f, i) => (
+              <div key={i} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                <div style={{
+                  fontSize: 20, padding: 8,
+                  backgroundColor: C.goldDim, border: `1px solid rgba(226, 183, 20, 0.15)`,
+                  borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  width: 40, height: 40, flexShrink: 0,
+                }}>
+                  {f.icon}
+                </div>
+                <div>
+                  <h4 style={{ fontSize: 15, fontWeight: 600, color: C.text, marginBottom: 4, fontFamily: "'Inter', sans-serif" }}>
+                    {f.title}
+                  </h4>
+                  <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.5, margin: 0 }}>
+                     {f.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
 
-        {screen === 'doctors' && (
-          <DoctorListScreen
-            suggestedSpecialty={suggestedSpecialty}
-            symptoms={symptoms}
-            onSelectDoctor={handleSelectDoctor}
-            onBack={() => go('dashboard')}
-          />
-        )}
+          <div style={{ fontSize: 11, color: '#5C6066', lineHeight: 1.6 }}>
+            <p style={{ margin: 0 }}>© 2026 NavaCare Technologies. All rights reserved.</p>
+            <p style={{ marginTop: 4, marginBottom: 0 }}>Optimised for all modern desktop, laptop and mobile browsers.</p>
+          </div>
+        </div>
+      </div>
 
-        {screen === 'booking' && selectedDoctor && (
-          <BookingScreen
-            doctor={selectedDoctor}
-            profile={patientProfile}
-            symptoms={symptoms}
-            onBook={handleBookSlot}
-            onBack={() => go('doctors')}
-          />
-        )}
+      {/* Interactive Frame Container */}
+      <div className="app-frame-container">
+        <div className="app-frame">
+          {screen === 'auth' && <AuthScreen onLogin={handleLogin} />}
 
-        {screen === 'payment' && selectedDoctor && selectedSlot && (
-          <PaymentScreen
-            doctor={selectedDoctor}
-            slot={selectedSlot}
-            profile={patientProfile}
-            onConfirm={handlePaymentConfirm}
-            onBack={() => go('booking')}
-          />
-        )}
+          {screen === 'dashboard' && (
+            <DashboardScreen
+              profile={patientProfile}
+              symptoms={symptoms}
+              setSymptoms={setSymptoms}
+              suggestedSpecialty={suggestedSpecialty}
+              setSuggestedSpecialty={setSuggestedSpecialty}
+              onFindDoctors={() => go('doctors')}
+            />
+          )}
 
-        {screen === 'confirmation' && selectedDoctor && selectedSlot && (
-          <ConfirmationScreen
-            doctor={selectedDoctor}
-            slot={selectedSlot}
-            profile={patientProfile}
-            onHome={() => {
-              setSelectedDoctor(null)
-              setSelectedSlot(null)
-              go('dashboard')
-            }}
-          />
-        )}
+          {screen === 'doctors' && (
+            <DoctorListScreen
+              suggestedSpecialty={suggestedSpecialty}
+              symptoms={symptoms}
+              onSelectDoctor={handleSelectDoctor}
+              onBack={() => go('dashboard')}
+            />
+          )}
 
-        {showNav && (
-          <BottomNav
-            active={activeNav}
-            onChange={(tab) => {
-              setActiveNav(tab)
-              if (tab === 'dashboard') go('dashboard')
-              if (tab === 'doctors') go('doctors')
-            }}
-          />
-        )}
+          {screen === 'booking' && selectedDoctor && (
+            <BookingScreen
+              doctor={selectedDoctor}
+              profile={patientProfile}
+              symptoms={symptoms}
+              onBook={handleBookSlot}
+              onBack={() => go('doctors')}
+            />
+          )}
+
+          {screen === 'payment' && selectedDoctor && selectedSlot && (
+            <PaymentScreen
+              doctor={selectedDoctor}
+              slot={selectedSlot}
+              profile={patientProfile}
+              onConfirm={handlePaymentConfirm}
+              onBack={() => go('booking')}
+            />
+          )}
+
+          {screen === 'confirmation' && selectedDoctor && selectedSlot && (
+            <ConfirmationScreen
+              doctor={selectedDoctor}
+              slot={selectedSlot}
+              profile={patientProfile}
+              onHome={() => {
+                setSelectedDoctor(null)
+                setSelectedSlot(null)
+                go('dashboard')
+              }}
+            />
+          )}
+
+          {showNav && (
+            <BottomNav
+              active={activeNav}
+              onChange={(tab) => {
+                setActiveNav(tab)
+                if (tab === 'dashboard') go('dashboard')
+                if (tab === 'doctors') go('doctors')
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   )
